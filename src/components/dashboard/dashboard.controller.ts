@@ -1,11 +1,12 @@
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
+import { User } from '../../decorators/user.decorator';
 
 @Controller('dashboard')
 export class DashboardController {
-  @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
+  @UseGuards(JwtAuthGuard)
+  getProfile(@User() user) {
+    return user;
   }
 }
