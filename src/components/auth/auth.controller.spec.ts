@@ -32,7 +32,7 @@ describe('Auth Controller', () => {
   });
 
   describe('#GET', () => {
-    it('should return valid token', () => {
+    it('/auth/login', () => {
       jest.spyOn(service, 'login').mockImplementationOnce(async () => ({ accessToken: 'test_token' }));
       return request(app.getHttpServer())
         .post('/auth/login')
