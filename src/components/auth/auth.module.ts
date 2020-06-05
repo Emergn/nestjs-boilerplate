@@ -14,7 +14,7 @@ import { JWT } from '../../constants';
     UsersModule,
     PassportModule,
     JwtModule.register({
-      secretOrPrivateKey: readFile('private.pem'),
+      secret: readFile('private.pem'),
       signOptions: JWT.SIGN_OPTIONS
     }),
   ],
