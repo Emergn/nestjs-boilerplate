@@ -6,18 +6,16 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
-import { ConfigModule } from '@nestjs/config';
+import { readFile } from '../../utils';
+import { JWT } from '../../constants';
 
 @Module({
   imports: [
     UsersModule,
     PassportModule,
-    JwtModule.registerAsync({
-      imports: [ConfigModule],
-      useFactory: async () => ({
-        secret: process.env.JWT_SECRET,
-        signOptions: { expiresIn: '10m' },
-      }),
+    JwtModule.register({
+      secretOrPrivateKey: readFile('private.pem'),
+      signOptions: JWT.SIGN_OPTIONS
     }),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
