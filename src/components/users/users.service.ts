@@ -1,27 +1,12 @@
 import { Injectable } from '@nestjs/common';
+import { usersMock } from './__mock__/users.mock';
 
 @Injectable()
 export class UsersService {
   private readonly users: Types.User[];
 
   constructor() {
-    this.users = [
-      {
-        userId: 1,
-        username: 'john',
-        password: 'changeme',
-      },
-      {
-        userId: 2,
-        username: 'chris',
-        password: 'secret',
-      },
-      {
-        userId: 3,
-        username: 'maria',
-        password: 'guess',
-      },
-    ];
+    this.users = usersMock;
   }
 
   async findOne(username: string): Promise<Types.User | undefined> {
