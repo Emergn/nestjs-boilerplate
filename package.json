@@ -19,9 +19,10 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "ssh:private": "ssh-keygen -y -t rsa -b 4096 -m PEM -f private.pem",
+    "ssh:private": "ssh-keygen -t rsa -b 4096 -m PEM -f private.pem -q -P \"\"",
     "ssh:public": "openssl rsa -in private.pem -pubout -outform PEM -out public.pem",
-    "ssh:generate": "npm run ssh:private && npm run ssh:public"
+    "ssh:generate": "npm run ssh:private && npm run ssh:public",
+    "postinstall": "npm run ssh:generate"
   },
   "dependencies": {
     "@nestjs/common": "^7.0.0",
