@@ -3,7 +3,7 @@ import { AuthModule } from '../auth.module';
 import { LocalStrategy } from './local.strategy';
 import { usersMock } from '../../users/__mock__/users.mock';
 import { AuthService } from '../auth.service';
-import { UnauthorizedException } from '@nestjs/common';
+import { Request } from 'express';
 
 describe('AuthService', () => {
   let strategy: LocalStrategy;
@@ -26,14 +26,23 @@ describe('AuthService', () => {
     it('should be valid', async () => {
       const { password, ...user } = usersMock[0];
       jest.spyOn(authService, 'validateUser').mockImplementationOnce(async () => user);
-      const result = await strategy.validate(user.username, password);
+      const result = await strategy.validate(request(user.username, password));
       expect(result).toEqual(user);
     });
 
     it('should throw an UnauthorizedException', async () => {
       const { password, ...user } = usersMock[0];
       jest.spyOn(authService, 'validateUser').mockImplementationOnce(async () => null);
-      await expect(strategy.validate(user.username, password)).rejects.toThrow('Unauthorized');
+      await expect(strategy.validate(request(user.username, password))).rejects.toThrow('Unauthorized');
     });
   });
 });
+
+function request(username: string, password: string): Request {
+  return {
+    body: {
+      username,
+      password,
+    },
+  } as Request;
+}
