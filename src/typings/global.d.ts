@@ -5,5 +5,6 @@ declare namespace Types {
     password: string;
   }
 
+  type RequestUser = Omit<User, 'userId'>;
   type ValidateUser = Omit<User, 'password'>;
 }
