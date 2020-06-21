@@ -8,12 +8,6 @@
 
 [Nest](https://github.com/nestjs/nest) boilerplate with JWT authentication which used RS256 encrypt.
 
-## Installation
-
-```bash
-$ npm ci
-```
-
 ## Running the app
 
 ```bash
